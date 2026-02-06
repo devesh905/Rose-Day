@@ -32,7 +32,7 @@
         /* Header Section */
         header {
             text-align: center;
-            padding: 30px 20px;
+            /* padding: 30px 20px; */
             position: relative;
             overflow: hidden;
         }
@@ -51,7 +51,7 @@
             color: #9c2253;
             font-weight: 300;
             max-width: 600px;
-            margin: 0 auto 30px;
+            margin: 0 auto ;
             animation: fadeIn 2.5s ease;
         }
         
@@ -61,7 +61,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 30px 0;
+            margin:  0;
             position: relative;
         }
         
@@ -365,6 +365,38 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Love Text Animation */
+.love-text {
+    position: fixed;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: #ff2f92;
+    text-shadow: 0 0 15px rgba(255, 77, 148, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    animation: loveFloat 2.5s ease-out forwards;
+}
+
+@keyframes loveFloat {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.8);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -20px) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -120px) scale(1);
+    }
+}
+
     </style>
 </head>
 <body>
@@ -379,6 +411,7 @@
             <div class="heart">💖</div>
             <div class="heart">💕</div>
             <div class="heart">💝</div>
+
         </header>
         
         <!-- Hero Section -->
@@ -424,29 +457,6 @@
             </div>
         </section>
         
-        <!-- Countdown Section -->
-        <section class="countdown">
-            <h2>Our Next Anniversary</h2>
-            <div class="countdown-timer">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">00</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-label">Seconds</span>
-                </div>
-            </div>
-        </section>
-        
         <!-- Interactive Button -->
         <button class="send-btn" id="sendLoveBtn">
             <i class="fas fa-paper-plane"></i> Send My Love
@@ -457,7 +467,7 @@
     <footer>
         <div class="love-note">With all my love, forever and always</div>
         <p>Made with ❤️ for the most special person in my life</p>
-        <p>© Rose Day 2023 - A celebration of our love</p>
+        <p>© Rose Day 2026 - A celebration of our love</p>
     </footer>
 
     <script>
@@ -478,39 +488,14 @@
         // Adjust animation speed and make it smoother
         roseAnimation.setSpeed(0.7);
         
-        // Countdown timer
-        function updateCountdown() {
-            const anniversaryDate = new Date();
-            anniversaryDate.setMonth(anniversaryDate.getMonth() + 6);
-            
-            const now = new Date();
-            const timeDiff = anniversaryDate - now;
-            
-            if (timeDiff > 0) {
-                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            } else {
-                document.querySelector('.countdown-timer').innerHTML = "<p>Happy Anniversary, My Love! 🎉</p>";
-            }
-        }
-        
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
-        
         // Interactive button
         document.getElementById('sendLoveBtn').addEventListener('click', function() {
             // Create floating hearts animation
             for (let i = 0; i < 15; i++) {
                 createFloatingHeart();
             }
+
+             showLoveText("Aarvi");
             
             // Change button text temporarily
             const originalText = this.innerHTML;
@@ -596,6 +581,17 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
+
+        function showLoveText(name) {
+    const text = document.createElement('div');
+    text.className = 'love-text';
+    text.innerHTML = `I Love You, ${name} ❤️`;
+    document.body.appendChild(text);
+
+    setTimeout(() => {
+        text.remove();
+    }, 2500);
+}
         
         // Initial animation for page load
         document.addEventListener('DOMContentLoaded', function() {
